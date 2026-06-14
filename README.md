@@ -1,4 +1,4 @@
-# GhostKey 👻🔑
+# GhostKey 
 ### PUF-Based Hardware Security Authentication System
 
 GhostKey is a hardware authentication system built on an **Arduino Uno** and **ESP32** that uses a *Physical Unclonable Function (PUF)* — a cryptographic fingerprint derived from the physical imperfections of the Arduino's silicon — to verify that a piece of hardware is exactly who it claims to be. It also features three layers of tamper detection that automatically destroy the authentication database if anyone tries to open, probe, or attack the device.
