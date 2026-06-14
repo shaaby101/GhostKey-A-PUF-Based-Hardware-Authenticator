@@ -828,23 +828,23 @@ void check_tamper() {
     return;
   }
 
-   ///Vibration — active-low (SW-420 DO pin pulls LOW on vibration)
-  //if (digitalRead(PIN_VIBRATION) == LOW) {
-    //uint32_t low_start = millis();
+   ///Vibration — active-low 
+  if (digitalRead(PIN_VIBRATION) == LOW) {
+    uint32_t low_start = millis();
   
-    //while (digitalRead(PIN_VIBRATION) == LOW && millis() - low_start < 200) {
-    //delay(1);
-    //}
+    while (digitalRead(PIN_VIBRATION) == LOW && millis() - low_start < 200) {
+    delay(1);
+    }
   
-    //int32_t low_duration = millis() - low_start;
+    int32_t low_duration = millis() - low_start;
 
     // A button press causes a very brief LOW (< 20ms)
     // Sustained handling of the enclosure holds LOW much longer
-    //if (low_duration > 199) {
-      //trigger_tamper("VIBRATION");
-      //Serial.print(low_duration);
-      //return;
-  //}
+    if (low_duration > 199) {
+      trigger_tamper("VIBRATION");
+      Serial.print(low_duration);
+      return;
+  }
 
   // Voltage comparator — active-low on trigger
   if (digitalRead(PIN_VOLTAGE) == LOW) {
