@@ -140,12 +140,12 @@ GhostKey uses two ESP32 hardware security features for this:
 ## 3. System Architecture
 
 ```
-┌─────────────────────────────────────────────────────────┐
-│                    SEALED ENCLOSURE                     │
-│                                                         │
+┌────────────────────────────────────────────────────────┐
+│                    SEALED ENCLOSURE                    │
+│                                                        │
 │  ┌──────────────┐   UART (9600 baud)  ┌─────────────┐  │
-│  │  Arduino Uno │ ◄──────────────────► │    ESP32    │  │
-│  │              │  TX→voltage divider  │             │  │
+│  │  Arduino Uno │ ◄──────────────────►│    ESP32    │  │
+│  │              │  TX→voltage divider │             │  │
 │  │  SRAM PUF    │  (5V→3.3V shift)    │  Verifier   │  │
 │  │  (the key)   │                     │  NVS flash  │  │
 │  └──────────────┘                     │  WiFi host  │  │
@@ -163,7 +163,7 @@ GhostKey uses two ESP32 hardware security features for this:
                     │                          ▼        │
                     │   [Auth Button]   [OLED Display]  │
                     │   [RGB LED]       [Relay → Lock]  │
-                    └──────────────────────────────────┘
+                    └────────────────────────────────── ┘
 ```
 
 **Key design rule:** Everything sensitive lives *inside* the sealed box. The user interacts only with the exterior: a button, an LED, and a display. The solenoid lock output, power cable, and wireless antenna are the only things that pass through the enclosure wall.
@@ -312,10 +312,10 @@ The solution is a resistor voltage divider on the Arduino TX → ESP32 RX line:
 
 ```
 Arduino TX (5V) ──┬── 10kΩ ──┬── ESP32 GPIO16 (3.3V)
-                  │           │
-                 GND         20kΩ
-                              │
-                             GND
+                  │          │
+                 GND        20kΩ
+                             │
+                            GND
 ```
 
 The output voltage is: `5V × (20kΩ / (10kΩ + 20kΩ)) = 3.33V` — safely within ESP32 tolerance.
